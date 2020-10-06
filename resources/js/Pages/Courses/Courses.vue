@@ -11,12 +11,7 @@ Delete
         </b-button>
       </template>
     </b-table>
-    <!-- <modal :categories="categories"
-      :edit="edit"
-      :form="form"
-      @create-course="createCourse"
-      @update-course="updateCourse" /> -->
-  </div>
+      </div>
 </template>
 <script>
 import Modal from "./../../Pages/Courses/ModalForm";
