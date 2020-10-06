@@ -1,16 +1,18 @@
 <template>
   <div>
-    <b-button @click="show">Show</b-button>
+    <div class="d-flex p-3" style="justify-content:flex-end"><b-button  variant="primary" @click="show">Add</b-button></div>
     <b-table striped hover :items="courses" :fields="fields">
        <template v-slot:cell(actions)="row">
-        <b-button size="sm" @click="editCourse(row.item,row.index,$event.target)"  class="mr-1">
+        <b-button variant="success" size="sm" @click="editCourse(row.item,row.index,$event.target)"  class="mr-1">
      Edit
         </b-button>
-        <b-button size="sm"  class="mr-1">
+        <b-button variant="danger" size="sm"  class="mr-1">
 Delete
         </b-button>
       </template>
     </b-table>
+    <modal @create-course="createCourse"
+      @update-course="updateCourse" :form="form"  />
       </div>
 </template>
 <script>

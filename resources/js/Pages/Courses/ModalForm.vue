@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="b-container-fluid">
+    <b-container class="p-3">
       <h2>Fill the form</h2>
       <b-form @submit.prevent="edit ? $emit('update-course', form.id) : $emit('create-course')">
         <b-form-group id="input-group-1" label="Your Name:" label-for="input-1">
@@ -63,7 +63,7 @@
         </b-form-group>
         <b-button type="submit" variant="primary">Submit</b-button>
       </b-form>
-    </div>
+    </b-container>
   </div>
 </template>
 <script>
