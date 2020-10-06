@@ -48,6 +48,8 @@ export default {
   },
   methods:{
        show () {
+         this.form.clear();
+             this.form.reset();
             this.$modal.show(Modal,{
               categories:this.categories,
               edit:this.edit,
@@ -77,15 +79,17 @@ export default {
       });
     },
     editCourse(course) {
-      this.$modal.show(Modal,{categories:this.categories});
+      this.$modal.show(Modal,{
+              categories:this.categories,
+              edit:this.edit,
+              form:this.form,
+            });
       this.form.clear();
       this.edit = true;
       this.form.reset();
       this.form.fill(course);
-      console.log(this.edit);
     },
-    
-  },
+      },
   created() {
     axios
       .get("api/courses")
