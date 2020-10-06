@@ -1,12 +1,21 @@
 <template>
   <div>
     <b-button @click="show">Show</b-button>
-    <b-table striped hover :items="courses" :fields="fields"></b-table>
-    <modal :categories="categories"
-      :form="form"
+    <b-table striped hover :items="courses" :fields="fields">
+       <template v-slot:cell(actions)="row">
+        <b-button size="sm" @click="editCourse(row.item,row.index,$event.target)"  class="mr-1">
+     Edit
+        </b-button>
+        <b-button size="sm"  class="mr-1">
+Delete
+        </b-button>
+      </template>
+    </b-table>
+    <!-- <modal :categories="categories"
       :edit="edit"
+      :form="form"
       @create-course="createCourse"
-      @update-course="updateCourse" />
+      @update-course="updateCourse" /> -->
   </div>
 </template>
 <script>
@@ -16,7 +25,7 @@ export default {
   name: "Courses",
   data() {
     return {
-      form: new Form({
+        form: new Form({
         id: "",
         name: "",
         category_id: "",
@@ -39,11 +48,12 @@ export default {
   },
   methods:{
        show () {
-            this.$modal.show(Modal),{
+            this.$modal.show(Modal,{
               categories:this.categories,
               edit:this.edit,
               form:this.form,
-            }},
+            })
+            },
  createCourse() {
       this.form
         .post("api/course")
@@ -57,7 +67,6 @@ export default {
       this.form
         .put("api/courses/" + this.form.id)
         .then((response) => {
-          $("#exampleModal").modal("hide");
           this.courses = response.data.data;
         })
         .catch((err) => console.log(err));
@@ -68,11 +77,10 @@ export default {
       });
     },
     editCourse(course) {
+      this.$modal.show(Modal,{categories:this.categories});
       this.form.clear();
       this.edit = true;
       this.form.reset();
-      this.categories;
-      $("#exampleModal").modal("show");
       this.form.fill(course);
       console.log(this.edit);
     },

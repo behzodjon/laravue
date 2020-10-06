@@ -5,7 +5,7 @@
 <b-form @submit.prevent="edit ? $emit('update-course',form.id) : $emit('create-course')">
       <b-form-group
         id="input-group-1"
-        label="Email address:"
+        label="Price:"
         label-for="input-1"
         description="We'll never share your email with anyone else."
       >
@@ -14,7 +14,7 @@
           v-model="form.price"
           type="text"
           required
-          placeholder="Enter email"
+          placeholder="Enter price"
         ></b-form-input>
       </b-form-group>
 
@@ -32,6 +32,9 @@
           id="input-3"
           v-model="form.category_id"
           :options="categories"
+                 value-field="id"
+      text-field="name"
+
           required
         ></b-form-select>
       </b-form-group>
@@ -45,7 +48,8 @@
       name: "ModalForm",
       props:['categories','edit','form'],
     data() {
-      return {
+return {
+      
       }
     },
     methods: {
