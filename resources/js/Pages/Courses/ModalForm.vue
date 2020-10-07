@@ -2,7 +2,7 @@
   <div>
     <b-container class="p-3">
       <h2>Fill the form</h2>
-      <b-form @submit.prevent="edit ? $emit('update-course', form.id) : $emit('create-course')">
+      <b-form @submit="onSubmit">
         <b-form-group id="input-group-1" label="Your Name:" label-for="input-1">
           <b-form-input
             id="input-1"
@@ -37,7 +37,7 @@
           <b-form-input
             id="input-4"
             v-model="form.lesson_count"
-            type="text"
+            type="number"
             required
             placeholder="Enter lesson count"
           ></b-form-input>
@@ -69,10 +69,18 @@
 <script>
 export default {
   name: "ModalForm",
-  props: ["categories", "edit", "form"],
+  props: ["categories", "edit", "form", "update", "create"],
   data() {
-    return {};
+    return {
+    };
   },
-  methods: {},
+  methods: {
+    onSubmit(evt) {
+      evt.preventDefault();
+      this.edit ? this.update(this.form.id) : this.create();
+      this.$modal.hideAll();
+    },
+  },
+ 
 };
 </script>

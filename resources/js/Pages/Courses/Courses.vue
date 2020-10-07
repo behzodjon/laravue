@@ -1,28 +1,31 @@
 <template>
   <div>
-    <div class="d-flex p-3" style="justify-content:flex-end"><b-button  variant="primary" @click="show">Add</b-button></div>
+    <div class="d-flex p-3" style="justify-content: flex-end">
+      <b-button variant="primary" @click="show">Add</b-button>
+    </div>
     <b-table striped hover :items="courses" :fields="fields">
-       <template v-slot:cell(actions)="row">
-        <b-button variant="success" size="sm" @click="editCourse(row.item,row.index,$event.target)"  class="mr-1">
-     Edit
+      <template v-slot:cell(actions)="row">
+        <b-button
+          variant="success"
+          size="sm"
+          @click="editCourse(row.item, row.index, $event.target)"
+          class="mr-1"
+        >
+          Edit
         </b-button>
-        <b-button variant="danger" size="sm"  class="mr-1">
-Delete
-        </b-button>
+        <b-button variant="danger" size="sm" class="mr-1"> Delete </b-button>
       </template>
     </b-table>
-    <modal @create-course="createCourse"
-      @update-course="updateCourse" :form="form"  />
-      </div>
+  </div>
 </template>
 <script>
 import Modal from "./../../Pages/Courses/ModalForm";
 export default {
-  components: {Modal},
+  components: { Modal },
   name: "Courses",
   data() {
     return {
-        form: new Form({
+      form: new Form({
         id: "",
         name: "",
         category_id: "",
@@ -40,20 +43,21 @@ export default {
       ],
       courses: [],
       categories: [],
-      edit:false
+      edit: false,
     };
   },
-  methods:{
-       show () {
-         this.form.clear();
-             this.form.reset();
-            this.$modal.show(Modal,{
-              categories:this.categories,
-              edit:this.edit,
-              form:this.form,
-            })
-            },
- createCourse() {
+  methods: {
+    show() {
+      this.form.clear();
+      this.form.reset();
+      this.$modal.show(Modal, {
+        categories: this.categories,
+        edit: this.edit,
+        form: this.form,
+        create: this.createCourse,
+      });
+    },
+    createCourse() {
       this.form
         .post("api/course")
         .then((response) => {
@@ -76,17 +80,18 @@ export default {
       });
     },
     editCourse(course) {
-      this.$modal.show(Modal,{
-              categories:this.categories,
-              edit:this.edit,
-              form:this.form,
-            });
-      this.form.clear();
       this.edit = true;
+      this.$modal.show(Modal, {
+        categories: this.categories,
+        edit: this.edit,
+        form: this.form,
+        update: this.updateCourse,
+      });
+      this.form.clear();
       this.form.reset();
       this.form.fill(course);
     },
-      },
+  },
   created() {
     axios
       .get("api/courses")
