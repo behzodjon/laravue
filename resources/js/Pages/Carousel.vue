@@ -10,7 +10,8 @@
           <div class="d-flex">
             <button @click="all" class="btn btn-success" v-text="'All'" />
             <div v-for="category in categories" :key="category.id">
-              <button  @click="selectCategory(category.id)"
+              <button
+                @click="selectCategory(category.id)"
                 class="btn btn-success"
                 v-text="category.name"
               />
@@ -22,23 +23,21 @@
             v-bind="settings"
             class="carousel m-4"
           >
-            <!-- <div class="d-flex">Next/prev</div> -->
             <div v-for="course in filteredCourses" :key="course.id">
               <div class="m-1">
                 <b-card
-                  title="Title"
-                  img-src="https://picsum.photos/300/300/?image=41"
+                  title="Card Title"
+                  img-src="https://picsum.photos/600/300/?image=25"
                   img-alt="Image"
                   img-top
+                  tag="article"
+                  style="max-width: 20rem"
+                  class="mb-2"
                 >
                   <b-card-text>
-                    This is a wider card with supporting text below as a natural
-                    lead-in to additional content. This content is a little bit
-                    longer.
+                   {{course.description}}
                   </b-card-text>
-                  <template v-slot:footer>
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                  </template>
+                  <b-button href="#" variant="primary">Go somewhere</b-button>
                 </b-card>
               </div>
             </div>
@@ -81,11 +80,11 @@ export default {
   methods: {
     all() {
       this.selectedCategoryId = "";
-    //   this.settings.slidesToScroll = 3;
+      //   this.settings.slidesToScroll = 3;
       this.settings.slidesToShow = 4;
     },
     selectCategory(id) {
-    //   this.settings.slidesToScroll = 1;
+      //   this.settings.slidesToScroll = 1;
       this.settings.slidesToShow = 1;
       this.selectedCategoryId = id;
     },

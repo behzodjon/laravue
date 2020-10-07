@@ -34,8 +34,6 @@ Vue.use(VModal,{
         height: 'auto'
       }
 })
-
-
 const app = document.getElementById('app');
 
 new Vue({
