@@ -17,8 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum'])->get('/dashboard', function () {
-    return Inertia\Inertia::render('Dashboard');
-})->name('dashboard');
-
-// Route::resource('courses', 'CourseController');
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
+    Route::get('carousel', 'HomeController@carouselView')->name('carousel');
+});
