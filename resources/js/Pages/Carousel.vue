@@ -88,12 +88,8 @@ export default {
 
     all() {
       this.selectedCategoryId = "";
-      //   this.settings.slidesToScroll = 3;
-      this.settings.slidesToShow = 4;
     },
     selectCategory(id) {
-      //   this.settings.slidesToScroll = 1;
-      this.settings.slidesToShow = 1;
       this.selectedCategoryId = id;
     },
   },
