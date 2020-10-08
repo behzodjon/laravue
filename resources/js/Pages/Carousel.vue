@@ -16,9 +16,13 @@
                 v-text="category.name"
               />
             </div>
+          <div class="d-flex">  <b-button variant="success" @click="showPrev">Prev</b-button> <b-button variant="success" @click="showNext">Next</b-button>
+</div>
+
           </div>
           <br />
           <VueSlickCarousel
+          ref="carousel"
             v-if="filteredCourses.length > 0"
             v-bind="settings"
             class="carousel m-4"
@@ -27,7 +31,7 @@
               <div class="m-1">
                 <b-card
                   title="Card Title"
-                  img-src="https://picsum.photos/600/300/?image=25"
+                  img-src="https://picsum.photos/600/300/?image=27"
                   img-alt="Image"
                   img-top
                   tag="article"
@@ -78,6 +82,13 @@ export default {
     };
   },
   methods: {
+        showNext() {
+        this.$refs.carousel.next()
+      },
+       showPrev() {
+        this.$refs.carousel.prev()
+      },
+ 
     all() {
       this.selectedCategoryId = "";
       //   this.settings.slidesToScroll = 3;
