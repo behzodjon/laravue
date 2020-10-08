@@ -1,28 +1,26 @@
 <template>
   <app-layout>
-    <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">Courses</h2>
-    </template>
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-          <h2>Slides</h2>
-          <div class="d-flex">
+          <h2 class="p-3">Slides</h2>
+          <div class="d-flex m-3">
             <button @click="all" class="btn btn-success" v-text="'All'" />
             <div v-for="category in categories" :key="category.id">
-              <button
+              <b-button
                 @click="selectCategory(category.id)"
-                class="btn btn-success"
+                variant="light"
                 v-text="category.name"
               />
             </div>
-          <div class="d-flex">  <b-button variant="success" @click="showPrev">Prev</b-button> <b-button variant="success" @click="showNext">Next</b-button>
-</div>
-
+            <div class="d-flex ml-5">
+              <b-button  variant="success" @click="showPrev">Prev</b-button>
+              <b-button variant="success" @click="showNext">Next</b-button>
+            </div>
           </div>
           <br />
           <VueSlickCarousel
-          ref="carousel"
+            ref="carousel"
             v-if="filteredCourses.length > 0"
             v-bind="settings"
             class="carousel m-4"
@@ -30,8 +28,8 @@
             <div v-for="course in filteredCourses" :key="course.id">
               <div class="m-1">
                 <b-card
-                  title="Card Title"
-                  img-src="https://picsum.photos/600/300/?image=27"
+                  :title="course.name"
+                  :img-src="url + course.id"
                   img-alt="Image"
                   img-top
                   tag="article"
@@ -39,9 +37,8 @@
                   class="mb-2"
                 >
                   <b-card-text>
-                   {{course.description}}
+                    {{ course.description }}
                   </b-card-text>
-                  <b-button href="#" variant="primary">Go somewhere</b-button>
                 </b-card>
               </div>
             </div>
@@ -67,14 +64,14 @@ export default {
     return {
       categories: [],
       courses: [],
+      url: "https://picsum.photos/600/300/?image=",
       selectedCategoryId: "",
       settings: {
         slidesToShow: 4,
-        infinite: true,
+        infinite: false,
         accessibility: true,
         adaptiveHeight: false,
         arrows: true,
-        dots: true,
         draggable: true,
         edgeFriction: 0.3,
         swipe: true,
@@ -82,13 +79,13 @@ export default {
     };
   },
   methods: {
-        showNext() {
-        this.$refs.carousel.next()
-      },
-       showPrev() {
-        this.$refs.carousel.prev()
-      },
- 
+    showNext() {
+      this.$refs.carousel.next();
+    },
+    showPrev() {
+      this.$refs.carousel.prev();
+    },
+
     all() {
       this.selectedCategoryId = "";
       //   this.settings.slidesToScroll = 3;
