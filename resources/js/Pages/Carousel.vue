@@ -14,8 +14,8 @@
               />
             </div>
             <div class="d-flex ml-5">
-              <b-button  variant="success" @click="showPrev">Prev</b-button>
-              <b-button variant="success" @click="showNext">Next</b-button>
+              <b-button  variant="success" @click="showPrev"><i class="fas fa-arrow-left"></i></b-button>
+              <b-button variant="success" @click="showNext"><i class="fas fa-arrow-right"></i></b-button>
             </div>
           </div>
           <br />
@@ -23,6 +23,7 @@
             ref="carousel"
             v-if="filteredCourses.length > 0"
             v-bind="settings"
+            :key="selectedCategoryId"
             class="carousel m-4"
           >
             <div v-for="course in filteredCourses" :key="course.id">
@@ -85,9 +86,15 @@ export default {
     showPrev() {
       this.$refs.carousel.prev();
     },
-
+    reInit() {
+            // Helpful if you have to deal with v-for to update dynamic lists
+            this.$nextTick(() => {
+                this.$refs.slick.reSlick();
+            });
+        },
     all() {
-      this.selectedCategoryId = "";
+      this.selectedCategoryId ="";
+      this.courses;
     },
     selectCategory(id) {
       this.selectedCategoryId = id;
@@ -104,13 +111,13 @@ export default {
       }
     },
   },
-  created() {
+  mounted() {
     axios
       .get("api/courses")
       .then((response) => (this.courses = response.data.data));
     axios
       .get("api/categories")
       .then((response) => (this.categories = response.data.data));
-  },
+},
 };
 </script>
